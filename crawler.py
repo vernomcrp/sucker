@@ -18,8 +18,8 @@ def get_raw(url, **kwargs):
         return stream
     except Exception as get_raw_exception:
         print get_raw_exception
-        print 'target_url=%s' % (url)
-        print 'headers=', default_headers
+        print 'target_url=%s' % url
+        print 'headers=%s' %  default_headers
         raise
 
 def get_soup(url, **kwargs):
