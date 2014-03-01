@@ -6,7 +6,21 @@ from bs4 import BeautifulSoup
 DEFAULT_USER_AGENT='Mozilla/5.0'
 
 def get_raw(url, **kwargs):
-    return urllib2.urlopen(url)
+    """ kwargs ex.
+    extra_headers={'Refer':'somewhere'}
+    extra_headers={'User-Agent':'Python'}
+    """
+    default_headers = {'User-Agent': DEFAULT_USER_AGENT}
+    if 'extra_headers' in kwargs:
+        default_headers.update(kwargs.get('extra_headers'))
+    try:
+        stream = urllib2.urlopen(url, headers=default_headeres)
+        return stream
+    except Exception as get_raw_exception:
+        print get_raw_exception
+        print 'target_url=%s' % (url)
+        print 'headers=', default_headers
+        raise
 
 def get_soup(url, **kwargs):
     return BeautifulSoup(get_raw(url))
